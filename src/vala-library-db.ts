@@ -62,7 +62,7 @@ function mainMenu() {
                 console.log("\nSummary of new book:");
                 console.log(newBook);
 
-                const confirm = readline.question("Do you want to update the database? (y/n): ").toLowerCase();
+                const confirm = readline.question("Do you want to update the library database with this book? (y/n): ").toLowerCase();
                 if (confirm === 'y') {
                     const books = readDatabase();
                     books.push(newBook);
