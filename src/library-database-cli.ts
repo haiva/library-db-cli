@@ -42,6 +42,19 @@ function saveDatabase(books: Book[]) {
     fs.writeFileSync(filename, data, 'utf-8');
 }
 
+function getValidYear(): number {
+    while (true) {
+        const input = readline.question(chalk.green("Publishing year: "));
+        const year = parseInt(input);
+        
+        if (!isNaN(year) && input.trim() !== '' && Number.isInteger(year)) {
+            return year;
+        }
+        
+        console.log(chalk.red("Invalid input. Please enter a numeric year."));
+    }
+}
+
 function mainMenu() {
     while(true) {
         console.log(chalk.greenBright.bold.underline('\nLibrary Database'));
@@ -55,7 +68,7 @@ function mainMenu() {
                 const name = readline.question(chalk.green("Book's name: "));
                 const author = readline.question(chalk.green("Author's name: "));
                 const isbn = readline.question(chalk.green("ISBN: "));
-                const year = parseInt(readline.question(chalk.green("Publishing year: ")));
+                const year = getValidYear();
 
                 const newBook: Book = { name, author, isbn, year };
 
