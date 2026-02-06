@@ -1,4 +1,5 @@
 📚 Book Database CLI
+
 A TypeScript-based command-line application for managing a book collection. This application allows users to store book data in a text file, read entries, and display them sorted by publishing year.
 
 ✨ Features
