@@ -9,21 +9,17 @@ A TypeScript-based command-line application for managing a book collection. This
 - Data is stored in a structured text format (Title/Author/ISBN/Year).
 
 🚀 Getting Started
-
-Prerequisites
-- Node.js (v18 or newer recommended)
-- npm (installed automatically with Node.js)
-
-Installation
-- Clone or download the repository.
-
-Install dependencies:
+- Prerequisites
+    - Node.js (v18 or newer recommended)
+    - npm (installed automatically with Node.js)
+- Installation
+    - Clone or download the repository.
+-   Install dependencies:
 ```bash
 npm install
 ```
-Running the Application
-- The application requires the database file path as a command-line argument:
-
+- Running the Application
+    - The application requires the database file path as a command-line argument:
 ```bash
 cd src
 npx ts-node index.ts books.txt
