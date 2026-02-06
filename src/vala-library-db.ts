@@ -44,43 +44,43 @@ function saveDatabase(books: Book[]) {
 
 function mainMenu() {
     while(true) {
-        console.log(chalk.cyan.bold('--Library Database--'));
-        console.log(chalk.yellow('1. Add a new book to the db'));
-        console.log(chalk.yellow('2. View all books in the db, sorted by publishing year'));
-        console.log(chalk.yellow('Q. Exit'));
-        const choice = readline.question(chalk.green('Enter your choice: '));
+        console.log(chalk.greenBright.bold.underline('\nLibrary Database'));
+        console.log(chalk.green('1. Add a new book to the db'));
+        console.log(chalk.green('2. View all books in the db, sorted by publishing year'));
+        console.log(chalk.green('Q. Exit'));
+        const choice = readline.question(chalk.green.bold('\nEnter your choice: '));
     
         switch (choice) {
             case '1': {
-                const name = readline.question("Book's name: ");
-                const author = readline.question("Author's name: ");
-                const isbn = readline.question("ISBN: ");
-                const year = parseInt(readline.question("Publishing year: "));
+                const name = readline.question(chalk.green("Book's name: "));
+                const author = readline.question(chalk.green("Author's name: "));
+                const isbn = readline.question(chalk.green("ISBN: "));
+                const year = parseInt(readline.question(chalk.green("Publishing year: ")));
 
                 const newBook: Book = { name, author, isbn, year };
 
-                console.log("\nSummary of new book:");
-                console.log(newBook);
+                console.log(chalk.greenBright.bold("\nSummary of new book:"));
+                console.log(chalk.gray(`Name: ${newBook.name}, Author: ${newBook.author}, ISBN: ${newBook.isbn}, Year: ${newBook.year}`));
 
-                const confirm = readline.question("Do you want to update the library database with this book? (y/n): ").toLowerCase();
+                const confirm = readline.question(chalk.greenBright.bold("Do you want to update the library database with this book? (y/n): ")).toLowerCase();
                 if (confirm === 'y') {
                     const books = readDatabase();
                     books.push(newBook);
                     saveDatabase(books);
-                    console.log("Database updated.");
+                    console.log(chalk.greenBright.bold("Database updated."));
                 }
                 break;
             }
             case '2': {
                 const books = readDatabase();
-                console.log("\n--Current Database Content (sorted by publishing year)--");
+                console.log(chalk.greenBright.bold.underline('\nCurrent Database Content (sorted by publishing year)'));
                 books.forEach(b => {
-                    console.log(chalk.cyan(`[${b.year}] ${b.name.padEnd(20)} | ${b.author.padEnd(20)} | ISBN: ${b.isbn}`));
+                    console.log(chalk.gray(`[${b.year}] ${b.name.padEnd(20)} | ${b.author.padEnd(20)} | ISBN: ${b.isbn}`));
                 });
                 break;
             }
             case 'Q': {
-                console.log(chalk.green("Exiting, thanks for using the Library Database!"));
+                console.log(chalk.greenBright.bold("Exiting, thanks for using the Library Database!"));
                 process.exit(0);
             }
             default:
