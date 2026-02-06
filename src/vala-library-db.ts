@@ -11,7 +11,7 @@ import chalk from 'chalk';
 
 interface Book {
     name: string;
-    writer: string;
+    author: string;
     isbn: string;
     year: number;
 }
@@ -30,15 +30,15 @@ function readDatabase(): Book[] {
     return data.split('\n')
         .filter(line => line.trim() !== '')
         .map(line => {
-            const [name, writer, isbn, year] = line.split('/');
-            return { name, writer, isbn, year: parseInt(year) };
+            const [name, author, isbn, year] = line.split('/');
+            return { name, author, isbn, year: parseInt(year) };
         })
         .sort((x, y) => x.year-y.year);
 }
 
 function saveDatabase(books: Book[]) {
     books.sort((x, y) => x.year - y.year);
-    const data = books.map(b => `${b.name}/${b.writer}/${b.isbn}/${b.year}`).join('\n');
+    const data = books.map(b => `${b.name}/${b.author}/${b.isbn}/${b.year}`).join('\n');
     fs.writeFileSync(filename, data, 'utf-8');
 }
 
@@ -53,11 +53,11 @@ function mainMenu() {
         switch (choice) {
             case '1': {
                 const name = readline.question("Book's name: ");
-                const writer = readline.question("Writer's name: ");
+                const author = readline.question("Author's name: ");
                 const isbn = readline.question("ISBN: ");
                 const year = parseInt(readline.question("Publishing year: "));
 
-                const newBook: Book = { name, writer, isbn, year };
+                const newBook: Book = { name, author, isbn, year };
 
                 console.log("\nSummary of new book:");
                 console.log(newBook);
@@ -75,7 +75,7 @@ function mainMenu() {
                 const books = readDatabase();
                 console.log("\n--Current Database Content (sorted by publishing year)--");
                 books.forEach(b => {
-                    console.log(chalk.cyan(`[${b.year}] ${b.name.padEnd(20)} | ${b.writer.padEnd(20)} | ISBN: ${b.isbn}`));
+                    console.log(chalk.cyan(`[${b.year}] ${b.name.padEnd(20)} | ${b.author.padEnd(20)} | ISBN: ${b.isbn}`));
                 });
                 break;
             }
@@ -84,7 +84,7 @@ function mainMenu() {
                 process.exit(0);
             }
             default:
-                console.log(chalk.red("Invalid choice. Please try again."));
+                console.log(chalk.red("Invalid choice. Please enter another."));
         }
     }        
 }
