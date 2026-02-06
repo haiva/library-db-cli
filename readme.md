@@ -17,16 +17,14 @@ Installation
 - Clone or download the repository.
 
 Install dependencies:
-
-Bash
 ```bash
 npm install
-Running the Application
-The application requires the database file path as a command-line argument:
 ```
+Running the Application
+- The application requires the database file path as a command-line argument:
 
-Bash
 ```bash
+cd src
 npx ts-node index.ts books.txt
 ```
 
