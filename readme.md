@@ -22,7 +22,7 @@ npm install
     - The application requires the database file path as a command-line argument:
 ```bash
 cd src
-npx ts-node index.ts books.txt
+npx ts-node library-database-cli.ts book-db.txt
 ```
 
 🏗 Technologies Used
