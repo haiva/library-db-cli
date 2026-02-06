@@ -1,0 +1,92 @@
+/**********************************************
+ npm install readline-sync
+ npm install @types/readline-sync --save-dev
+ npm install chalk@4
+ npm install @types/chalk --save-dev
+ npm install @types/node --save-dev
+**********************************************/
+import * as fs from 'fs';
+import * as readline from 'readline-sync';
+import chalk from 'chalk';
+
+interface Book {
+    name: string;
+    writer: string;
+    isbn: string;
+    year: number;
+}
+
+const filename = process.argv[2];
+
+if(!filename) {
+    console.log(chalk.red('Please provide a filename as a command-line argument.'));
+    process.exit(1);
+}
+
+function readDatabase(): Book[] {
+    if(!fs.existsSync(filename)) return[];
+
+    const data = fs.readFileSync(filename, 'utf-8');
+    return data.split('\n')
+        .filter(line => line.trim() !== '')
+        .map(line => {
+            const [name, writer, isbn, year] = line.split('/');
+            return { name, writer, isbn, year: parseInt(year) };
+        })
+        .sort((x, y) => x.year-y.year);
+}
+
+function saveDatabase(books: Book[]) {
+    books.sort((x, y) => x.year - y.year);
+    const data = books.map(b => `${b.name}/${b.writer}/${b.isbn}/${b.year}`).join('\n');
+    fs.writeFileSync(filename, data, 'utf-8');
+}
+
+function mainMenu() {
+    while(true) {
+        console.log(chalk.cyan.bold('--Library Database--'));
+        console.log(chalk.yellow('1. Add a new book to the db'));
+        console.log(chalk.yellow('2. View all books in the db, sorted by publishing year'));
+        console.log(chalk.yellow('Q. Exit'));
+        const choice = readline.question(chalk.green('Enter your choice: '));
+    
+        switch (choice) {
+            case '1': {
+                const name = readline.question("Book's name: ");
+                const writer = readline.question("Writer's name: ");
+                const isbn = readline.question("ISBN: ");
+                const year = parseInt(readline.question("Publishing year: "));
+
+                const newBook: Book = { name, writer, isbn, year };
+
+                console.log("\nSummary of new book:");
+                console.log(newBook);
+
+                const confirm = readline.question("Do you want to update the database? (y/n): ").toLowerCase();
+                if (confirm === 'y') {
+                    const books = readDatabase();
+                    books.push(newBook);
+                    saveDatabase(books);
+                    console.log("Database updated.");
+                }
+                break;
+            }
+            case '2': {
+                const books = readDatabase();
+                console.log("\n--Current Database Content (sorted by publishing year)--");
+                books.forEach(b => {
+                    console.log(chalk.cyan(`[${b.year}] ${b.name.padEnd(20)} | ${b.writer.padEnd(20)} | ISBN: ${b.isbn}`));
+                });
+                break;
+            }
+            case 'Q': {
+                console.log(chalk.green("Exiting, thanks for using the Library Database!"));
+                process.exit(0);
+            }
+            default:
+                console.log(chalk.red("Invalid choice. Please try again."));
+        }
+    }        
+}
+
+mainMenu();
