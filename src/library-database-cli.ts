@@ -72,7 +72,7 @@ function mainMenu() {
 
                 const newBook: Book = { name, author, isbn, year };
 
-                console.log(chalk.greenBright.bold("\nSummary of new book:"));
+                console.log(chalk.greenBright.underline.bold("\nSummary of new book:"));
                 console.log(chalk.gray(`Name: ${newBook.name}, Author: ${newBook.author}, ISBN: ${newBook.isbn}, Year: ${newBook.year}`));
 
                 const confirm = readline.question(chalk.greenBright.bold("Do you want to update the library database with this book? (y/n): ")).toLowerCase();
