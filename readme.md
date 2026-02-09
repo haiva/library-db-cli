@@ -24,6 +24,10 @@ npm install
 cd src
 npx ts-node library-database-cli.ts book-db.txt
 ```
+🛠 Architecture
+- types.ts: Shared interfaces.
+- book-repository.ts: Handles file I/O operations and encapsulates the file format.
+- book-service.ts: Contains the core logic for data sorting and validation.
 
 🏗 Technologies Used
 - TypeScript
