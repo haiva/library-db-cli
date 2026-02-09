@@ -41,10 +41,10 @@ function startCli() {
 }
 
 function addNewBook() {
-        const name = readline.question(chalk.green("Book's name: "));
-        const author = readline.question(chalk.green("Author's name: "));
-        const isbn = readline.question(chalk.green("ISBN: "));
-        const year = getValidYear();
+    const name = readline.question(chalk.green("Book's name: "));
+    const author = readline.question(chalk.green("Author's name: "));
+    const isbn = readline.question(chalk.green("ISBN: "));
+    const year = getValidYear();
 
     if (isNaN(year)) {
         console.log(chalk.red("Invalid input. Please enter a numeric year."));
